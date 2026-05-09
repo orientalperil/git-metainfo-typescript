@@ -77,6 +77,4 @@ export function writeGitMetaInfo(output: string, data: GitData): string {
   })
 
   writeFileSync(output, JSON.stringify(data, null, 2))
-
-  return output
 }
