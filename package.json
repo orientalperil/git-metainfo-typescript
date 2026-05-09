@@ -1,0 +1,18 @@
+{
+  "name": "git-metainfo",
+  "version": "0.1.0",
+  "homepage": "https://github.com/orientalperil/git-metainfo-typescript",
+  "type": "module",
+  "bin": {
+    "git-metainfo": "./bin/git-metainfo.js"
+  },
+  "exports": {
+    ".": "./src/index.js"
+  },
+  "scripts": {
+    "test": "vitest run"
+  },
+  "devDependencies": {
+    "vitest": "^3.0.0"
+  }
+}
