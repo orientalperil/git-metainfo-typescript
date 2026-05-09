@@ -1,2 +1,2 @@
-npx eslint . --ext .ts
+npx eslint src --ext .ts
 npx prettier . --check
