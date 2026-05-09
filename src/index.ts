@@ -37,10 +37,12 @@ export interface GitData {
   author_email: string
   author_date: string
   author_date_iso: string
+  author_date_unix: string
   committer_name: string
   committer_email: string
   committer_date: string
   committer_date_iso: string
+  committer_date_unix: string
   message: string
   branch: string | null
   detached_head: boolean
@@ -57,10 +59,12 @@ export function getGitData(): GitData {
     author_email: runGitCommand("git log -1 --pretty=%ae"),
     author_date: runGitCommand("git log -1 --pretty=%ai"),
     author_date_iso: runGitCommand("git log -1 --pretty=%aI"),
+    author_date_unix: runGitCommand("git log -1 --pretty=%at"),
     committer_name: runGitCommand("git log -1 --pretty=%cn"),
     committer_email: runGitCommand("git log -1 --pretty=%ce"),
     committer_date: runGitCommand("git log -1 --pretty=%ci"),
     committer_date_iso: runGitCommand("git log -1 --pretty=%cI"),
+    committer_date_unix: runGitCommand("git log -1 --pretty=%ct"),
     message: runGitCommand("git log -1 --pretty=%B"),
     branch: detached ? null : branch,
     detached_head: detached,
