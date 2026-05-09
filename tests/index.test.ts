@@ -4,7 +4,7 @@ import {
   GitMetaInfoError,
   GitNotInstalledError,
   NotGitRepositoryError,
-} from "../src/index.js"
+} from "git-metainfo"
 import { beforeEach, describe, expect, it, vi, type Mock } from "vitest"
 
 vi.mock("child_process", () => ({

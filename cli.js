@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { getGitData, writeGitMetaInfo } from "../src/index.ts"
+import { getGitData, writeGitMetaInfo } from "./src/index.ts"
 
 const args = process.argv.slice(2)
 let output
