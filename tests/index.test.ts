@@ -3,7 +3,8 @@ import {
   expect,
   it,
   vi,
-  beforeEach
+  beforeEach,
+  type Mock
 } from 'vitest'
 
 vi.mock('child_process', () => ({
@@ -19,7 +20,10 @@ import {
   NotGitRepositoryError
 } from '../src/index.js'
 
-const mockReturns = (fn, values) => {
+const mockReturns = (
+  fn: Mock,
+  values: string[]
+): void => {
   values.forEach((value) => {
     fn.mockReturnValueOnce(Buffer.from(value))
   })
@@ -29,11 +33,12 @@ beforeEach(() => {
   vi.clearAllMocks()
 })
 
-
 describe('git-metainfo', () => {
   it('handles missing git', () => {
-    execSync.mockImplementation(() => {
-      const err = new Error('missing')
+    ;(execSync as Mock).mockImplementation(() => {
+      const err = new Error('missing') as Error & {
+        code: string
+      }
       err.code = 'ENOENT'
       throw err
     })
@@ -42,13 +47,16 @@ describe('git-metainfo', () => {
       .toThrow(GitNotInstalledError)
   })
 
-
   it('handles non git repo', () => {
-    execSync.mockImplementation(() => {
-      const err = new Error('bad repo')
+    ;(execSync as Mock).mockImplementation(() => {
+      const err = new Error('bad repo') as Error & {
+        stderr: Buffer
+      }
+
       err.stderr = Buffer.from(
         'fatal: not a git repository'
       )
+
       throw err
     })
 
@@ -56,21 +64,20 @@ describe('git-metainfo', () => {
       .toThrow(NotGitRepositoryError)
   })
 
-
   it('handles detached HEAD', () => {
-    mockReturns(execSync, [
-      "HEAD",
-      "abc123",
-      "abc123",
-      "John",
-      "john@john.com",
-      "2026-01-01 00:00:00 +0000",
-      "2026-01-01T00:00:00Z",
-      "John",
-      "john@john.com",
-      "2026-01-01 00:00:00 +0000",
-      "2026-01-01T00:00:00Z",
-      "test commit",
+    mockReturns(execSync as Mock, [
+      'HEAD',
+      'abc123',
+      'abc123',
+      'John',
+      'john@john.com',
+      '2026-01-01 00:00:00 +0000',
+      '2026-01-01T00:00:00Z',
+      'John',
+      'john@john.com',
+      '2026-01-01 00:00:00 +0000',
+      '2026-01-01T00:00:00Z',
+      'test commit'
     ])
 
     const data = getGitData()
@@ -82,21 +89,20 @@ describe('git-metainfo', () => {
       .toBe(null)
   })
 
-
   it('handles normal branch', () => {
-    mockReturns(execSync, [
-      "master",
-      "abc123",
-      "abc123",
-      "John",
-      "john@john.com",
-      "2026-01-01 00:00:00 +0000",
-      "2026-01-01T00:00:00Z",
-      "John",
-      "john@john.com",
-      "2026-01-01 00:00:00 +0000",
-      "2026-01-01T00:00:00Z",
-      "test commit",
+    mockReturns(execSync as Mock, [
+      'master',
+      'abc123',
+      'abc123',
+      'John',
+      'john@john.com',
+      '2026-01-01 00:00:00 +0000',
+      '2026-01-01T00:00:00Z',
+      'John',
+      'john@john.com',
+      '2026-01-01 00:00:00 +0000',
+      '2026-01-01T00:00:00Z',
+      'test commit'
     ])
 
     const data = getGitData()
@@ -108,13 +114,16 @@ describe('git-metainfo', () => {
       .toBe('master')
   })
 
-
   it('handles unknown git errors', () => {
-    execSync.mockImplementation(() => {
-      const err = new Error('weird')
+    ;(execSync as Mock).mockImplementation(() => {
+      const err = new Error('weird') as Error & {
+        stderr: Buffer
+      }
+
       err.stderr = Buffer.from(
         'some other git error'
       )
+
       throw err
     })
 
