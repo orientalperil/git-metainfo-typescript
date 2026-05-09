@@ -1,5 +1,9 @@
 {
   "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "git-metainfo": ["./src/index.ts"]
+    },
     "target": "ES2022",
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
@@ -8,7 +12,8 @@
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "types": ["node"]
+    "declaration": true,
+    "declarationMap": true,
   },
   "include": ["src/**/*.ts"]
 }

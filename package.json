@@ -4,22 +4,27 @@
   "homepage": "https://github.com/orientalperil/git-metainfo-typescript",
   "type": "module",
   "bin": {
-    "git-metainfo": "cli.js"
+    "git-metainfo": "./dist/cli.js"
   },
   "exports": {
-    ".": "./dist/index.js"
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
   },
+  "files": [
+    "dist/"
+  ],
   "scripts": {
     "build": "tsc",
     "test": "vitest run",
-    "lint": "eslint . --ext .ts",
+    "lint": "eslint src --ext .ts",
     "format": "prettier . --write",
     "format:check": "prettier . --check",
-    "prepare": "husky install"
+    "prepare": "husky"
   },
   "devDependencies": {
     "@ianvs/prettier-plugin-sort-imports": "^4.4.1",
-    "@types/node": "^25.6.2",
     "@typescript-eslint/eslint-plugin": "^8.0.0",
     "@typescript-eslint/parser": "^8.0.0",
     "eslint": "^9.0.0",

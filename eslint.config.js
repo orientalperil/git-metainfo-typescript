@@ -2,30 +2,16 @@ import js from "@eslint/js"
 import tsPlugin from "@typescript-eslint/eslint-plugin"
 import tsParser from "@typescript-eslint/parser"
 import prettier from "eslint-config-prettier"
-import globals from "globals"
 
 export default [
-  {
-    languageOptions: {
-      globals: {
-        ...globals.node,
-      },
-    },
-  },
-
   js.configs.recommended,
-
   prettier,
-
   {
     files: ["**/*.ts", "**/*.tsx"],
     languageOptions: {
       parser: tsParser,
       ecmaVersion: "latest",
       sourceType: "module",
-      globals: {
-        ...globals.node,
-      },
     },
     plugins: {
       "@typescript-eslint": tsPlugin,

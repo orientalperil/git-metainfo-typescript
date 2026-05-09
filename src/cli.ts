@@ -1,8 +1,8 @@
 #!/usr/bin/env node
-import { getGitData, writeGitMetaInfo } from "./src/index.ts"
+import { getGitData, writeGitMetaInfo } from "./index.js"
 
 const args = process.argv.slice(2)
-let output
+let output: string | undefined
 
 for (let i = 0; i < args.length; i += 1) {
   if (args[i] === "--output" || args[i] === "-o") {

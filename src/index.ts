@@ -71,7 +71,7 @@ export function getGitData(): GitData {
   }
 }
 
-export function writeGitMetaInfo(output: string, data: GitData): string {
+export function writeGitMetaInfo(output: string, data: GitData): void {
   mkdirSync(dirname(output), {
     recursive: true,
   })
