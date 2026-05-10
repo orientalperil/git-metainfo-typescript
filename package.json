@@ -4,7 +4,7 @@
   "homepage": "https://github.com/orientalperil/git-metainfo-typescript",
   "type": "module",
   "bin": {
-    "git-metainfo": "./dist/cli.js"
+    "git-metainfo": "dist/cli.js"
   },
   "exports": {
     ".": {
