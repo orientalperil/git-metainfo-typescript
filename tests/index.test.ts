@@ -66,7 +66,7 @@ describe("git-metainfo", () => {
       "test commit",
     ])
 
-    const data = getGitData()
+    const data = getGitData(true)
 
     expect(data.detached_head).toBe(true)
 
@@ -91,7 +91,7 @@ describe("git-metainfo", () => {
       "test commit",
     ])
 
-    const data = getGitData()
+    const data = getGitData(true)
 
     expect(data.detached_head).toBe(false)
 

@@ -33,13 +33,13 @@ function runGitCommand(command: string): string {
 export interface GitData {
   hash: string
   short_hash: string
-  author_name: string
-  author_email: string
+  author_name?: string
+  author_email?: string
   author_date: string
   author_date_iso: string
   author_date_unix: string
-  committer_name: string
-  committer_email: string
+  committer_name?: string
+  committer_email?: string
   committer_date: string
   committer_date_iso: string
   committer_date_unix: string
@@ -48,20 +48,24 @@ export interface GitData {
   detached_head: boolean
 }
 
-export function getGitData(): GitData {
+export function getGitData(includeIdentity = false): GitData {
   const branch = runGitCommand("git rev-parse --abbrev-ref HEAD")
   const detached = branch === "HEAD"
 
   return {
     hash: runGitCommand("git rev-parse HEAD"),
     short_hash: runGitCommand("git rev-parse --short HEAD"),
-    author_name: runGitCommand("git log -1 --pretty=%an"),
-    author_email: runGitCommand("git log -1 --pretty=%ae"),
+    ...(includeIdentity && {
+      author_name: runGitCommand("git log -1 --pretty=%an"),
+      author_email: runGitCommand("git log -1 --pretty=%ae"),
+    }),
     author_date: runGitCommand("git log -1 --pretty=%ai"),
     author_date_iso: runGitCommand("git log -1 --pretty=%aI"),
     author_date_unix: runGitCommand("git log -1 --pretty=%at"),
-    committer_name: runGitCommand("git log -1 --pretty=%cn"),
-    committer_email: runGitCommand("git log -1 --pretty=%ce"),
+    ...(includeIdentity && {
+      committer_name: runGitCommand("git log -1 --pretty=%cn"),
+      committer_email: runGitCommand("git log -1 --pretty=%ce"),
+    }),
     committer_date: runGitCommand("git log -1 --pretty=%ci"),
     committer_date_iso: runGitCommand("git log -1 --pretty=%cI"),
     committer_date_unix: runGitCommand("git log -1 --pretty=%ct"),
