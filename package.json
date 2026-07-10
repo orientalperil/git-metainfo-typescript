@@ -7,9 +7,9 @@
     "git-metainfo": "dist/cli.js"
   },
   "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js"
+    "./*": {
+      "types": "./dist/*.d.ts",
+      "import": "./dist/*.js"
     }
   },
   "files": [
@@ -20,8 +20,8 @@
     "test": "vitest run",
     "typecheck": "tsc --noEmit",
     "lint": "eslint src --ext .ts",
-    "format": "prettier . --write",
-    "format:check": "prettier . --check",
+    "format": "prettier src --write",
+    "format:check": "prettier src --check",
     "prepare": "husky"
   },
   "devDependencies": {
