@@ -1,6 +1,6 @@
 {
   "name": "git-metainfo",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "homepage": "https://github.com/orientalperil/git-metainfo-typescript",
   "type": "module",
   "bin": {
